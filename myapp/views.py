@@ -3,7 +3,7 @@ from .models import  User
 from .forms import UserForm
 
 # Create your views here.
-def user_List(request):
+def user_list(request):
     users = User.objects.all()
     return render(request,'listingpage.html',{'users':users})
 def add_user(request):
@@ -13,7 +13,7 @@ def add_user(request):
         form.save()
         return redirect('/')
     mydict['form'] = form
-    return render(request,'add.html')
+    return render(request,'add.html',context={'form':form})
 
 
 
