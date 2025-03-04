@@ -14,6 +14,28 @@ def add_user(request):
         return redirect('/')
     mydict['form'] = form
     return render(request,'add.html',context={'form':form})
+def edit_user(request,id=None):
+    one_record = User.objects.get(pk=id)
+    form = UserForm(request.POST or None, request.FILES or None, instance=one_record)
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+    mydict={'form':form}
+    # mydict['form'] = form
+    return render(request,'edit.html',context=mydict)
+def delete_user(request,id=None):
+    one_record = User.objects.get(pk=id)
+    if request.method=='POST':
+        one_record.delete()
+        return redirect('/')
+    return render(request,'delete.html')
+def view_user(request,id=None):
+    mydict={}
+    one_record = User.objects.get(pk=id)
+    mydict['user'] = one_record
+    return render(request, 'views.html', mydict)
+
+
 
 
 
